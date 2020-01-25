@@ -1,0 +1,42 @@
+{
+	"name": "FormatMoney.js",
+	"description": "Tiny JavaScript library by CurrencyRate.today, providing simple and advanced number, money and currency formatting.",
+	"version": "0.1.2",
+	"license": "MIT",
+	"main": "./dist/formatMoney.min.js",
+	"author": "@dejurin",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dejurin/FormatMoney.js.git"
+	},
+	"scripts": {
+		"build": "npm run clean && tsc && gulp",
+		"clean": "gulp clean",
+		"lint": "tslint --project tsconfig.json"
+	},
+	"dependencies": {
+		"@babel/parser": "^7.8.3",
+		"@babel/types": "^7.8.3",
+		"jest-diff": "^25.1.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.8.3",
+		"@babel/preset-env": "^7.8.3",
+		"@babel/preset-react": "^7.8.3",
+		"@types/jest": "^24.0.6",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.5",
+		"babel-preset-env": "^1.7.0",
+		"browserify": "^16.2.3",
+		"del": "^3.0.0",
+		"gulp": "^4.0.2",
+		"gulp-concat": "^2.6.1",
+		"gulp-uglify": "^3.0.2",
+		"tslint": "^5.12.1",
+		"typescript": "^3.8.0-dev.20200125",
+		"uglify-es": "^3.3.9",
+		"webpack": "^4.41.5",
+		"webpack-cli": "^3.3.10"
+	},
+	"types": "./dist/FormatMoney.d.ts"
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["es2015"],
+    "module": "ESNext",
+    "declaration": true,
+    "outDir": "dist",
+    "target": "es2015",
+    "pretty": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+  },
+  "compileOnSave": true,
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
