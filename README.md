@@ -1,7 +1,7 @@
 # format-money-js
 [![Build Status](https://travis-ci.org/dejurin/format-money-js.svg?branch=master)](https://travis-ci.org/dejurin/format-money-js)
 
-Tiny JavaScript library (576 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.
+Tiny JavaScript library (668 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.
 
 ## Example
 
