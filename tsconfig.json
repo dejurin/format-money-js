@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["es2015"],
+    "lib": ["ES6","ESNext"],
     "module": "ESNext",
     "declaration": true,
     "outDir": "dist",
-    "target": "es2015",
+    "target": "ES6",
     "pretty": true,
     "allowJs": true,
     "sourceMap": true,
