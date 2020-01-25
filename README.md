@@ -8,6 +8,9 @@ Tiny JavaScript library (668 bytes) by CurrencyRate.today, providing simple and 
 ```
 const { FormatMoney } = require('format-money-js');
 
-const fm = new FormatMoney({decimals: 2});
-console.log(fm.from(12345.67));
+const fm = new FormatMoney({
+  decimals: 2,
+  prefix: '$'
+});
+console.log(fm.from(12345.67)); // $12,345.67
 ```

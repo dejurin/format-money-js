@@ -1,5 +1,7 @@
-// ES6
-import { FormatMoney } from './dist/FormatMoney.js'
+const { FormatMoney } = require('format-money-js');
 
-const fm = new FormatMoney({decimals: 2});
-console.log(fm.from(12345.67));
+const fm = new FormatMoney({
+  decimals: 2,
+  prefix: '$'
+});
+console.log(fm.from(12345.67)); // $12,345.67
