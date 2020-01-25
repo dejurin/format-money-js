@@ -1,5 +1,5 @@
 /*!
- * format-money-js v0.2.2
+ * format-money-js v0.2.3
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
