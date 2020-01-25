@@ -1,11 +1,9 @@
-"use strict";
 /*!
  * FormatMoney.js v0.1.2
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-class FormatMoney {
+export class FormatMoney {
     constructor(options) {
         this.options = options;
         this.version = '0.1.2';
@@ -41,5 +39,4 @@ class FormatMoney {
         this.options = Object.assign(Object.assign({}, this.defaults), options);
     }
 }
-exports.FormatMoney = FormatMoney;
 //# sourceMappingURL=FormatMoney.js.map
