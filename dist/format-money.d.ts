@@ -1,5 +1,5 @@
 /*!
- * format-money-js v0.2.7
+ * format-money-js v1.0.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -11,10 +11,4 @@ export interface FormatMoneyOptions {
     prefix?: string;
     suffix?: string;
 }
-export declare class FormatMoney {
-    private options?;
-    version: string;
-    private defaults;
-    constructor(options?: FormatMoneyOptions);
-    from: (num: number) => string;
-}
+export declare function FormatMoney(num: number, options: FormatMoneyOptions): string;
