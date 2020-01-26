@@ -1,9 +1,9 @@
 {
 	"name": "format-money-js",
 	"description": "Tiny JavaScript library by CurrencyRate.today, providing simple and advanced number, money and currency formatting.",
-	"version": "0.2.6",
+	"version": "0.2.7",
   "license": "BSD-2-Clause",
-	"main": "index.js",
+	"main": "./dist/format-money.js",
 	"author": "@dejurin",
   "bugs": {
     "url": "https://github.com/dejurin/format-money-js/issues"
