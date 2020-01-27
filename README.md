@@ -17,3 +17,22 @@ const fm = new FormatMoney({
 
 console.log(fm.from(12345.67, { prefix: '$' })); // $12,345.67
 ```
+
+## Options
+
+You can added options in construct of class and in method. But method will be primary.
+### Example: 
+```
+const fm = new FormatMoney({ prefix: '$' });
+
+console.log(fm.from(12345.67, { prefix: '€' })); // €12,345.67
+```
+
+| Name          | Default  | Type    | Example
+|---------------|----------|---------|------------------------------|
+| grouping      | true     | Boolean | 1,000 (true) vs 1000 (false) |
+| separator     | ,        | String  | 1,000                        |
+| decimalPoint  | .        | String  | 1,234.56                     |
+| decimals      | 0        | Number  | 1,234 (0 - without decimals) |
+| prefix        | None     | String  | $1,234.56 (before)           |
+| suffix        | None     | String  | 1,234.56$ (after)            |
