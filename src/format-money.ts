@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.1.2
+ * format-money-js v1.1.3
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -15,7 +15,7 @@ export interface FormatMoneyOptions { // (default)
 
 export class FormatMoney {
 
-  version = '1.1.2';
+  version = '1.1.3';
   private defaults: FormatMoneyOptions = {
     grouping: true,
     separator: ',',
