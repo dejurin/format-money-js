@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.1.6
+ * format-money-js v1.2.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -9,20 +9,20 @@ export interface FormatMoneyOptions { // (default)
   separator?: string; // Grouping separator (,)
   decimalPoint?: string; // Sets the separator for the decimal point.
   decimals?: number; // Sets the number of decimal points.
-  prefix?: string; // Text prepended to result
-  suffix?: string; // Text appended to result
+  symbol?: string;
+  append?: boolean;
 }
 
 export class FormatMoney {
 
-  version = '1.1.6';
+  version = '1.2.0';
   private defaults: FormatMoneyOptions = {
     grouping: true,
     separator: ',',
     decimalPoint: '.',
     decimals: 0,
-    prefix: '',
-    suffix: ''
+    symbol: '',
+    append: false
   };
 
   constructor(
@@ -44,7 +44,9 @@ export class FormatMoney {
       x: string[],
       x1: string,
       x2: string,
-      x3: string;
+      x3: string,
+      prefix: string,
+      suffix: string;
     result = Math.abs(num).toFixed(options.decimals);
     result += '';
     x = result.split('.');
@@ -60,7 +62,15 @@ export class FormatMoney {
       }
       x1 = x3;
     }
-    return neg + options.prefix + x1 + x2 + options.suffix;
+    prefix = suffix = '';
+    if (options.append) {
+      
+      suffix = options.symbol;
+    }
+    else {
+      prefix = options.symbol;
+    }
+    return neg + prefix + x1 + x2 + suffix;
   }
 
 }

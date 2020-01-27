@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.1.6
+ * format-money-js v1.2.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -8,8 +8,8 @@ export interface FormatMoneyOptions {
     separator?: string;
     decimalPoint?: string;
     decimals?: number;
-    prefix?: string;
-    suffix?: string;
+    symbol?: string;
+    append?: boolean;
 }
 export declare class FormatMoney {
     private options?;

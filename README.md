@@ -4,7 +4,7 @@
 ![download per month](https://img.shields.io/npm/dm/format-money-js)
 
 
-Tiny JavaScript library (656 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.
+Tiny JavaScript library (684 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.
 
 ## Example
 
@@ -15,7 +15,7 @@ const fm = new FormatMoney({
   decimals: 2
 });
 
-console.log(fm.from(12345.67, { prefix: '$' })); // $12,345.67
+console.log(fm.from(12345.67, { symbol: '$' })); // $12,345.67
 ```
 
 ## Options
@@ -23,9 +23,9 @@ console.log(fm.from(12345.67, { prefix: '$' })); // $12,345.67
 You can added options in construct of class and in method. But method will be primary.
 ### Example: 
 ```
-const fm = new FormatMoney({ prefix: '$' });
+const fm = new FormatMoney({ symbol: '$' });
 
-console.log(fm.from(12345.67, { prefix: '€' })); // €12,345.67
+console.log(fm.from(12345.67, { symbol: '€' })); // €12,345.67
 ```
 
 | Name          | Default  | Type    | Example
@@ -34,8 +34,8 @@ console.log(fm.from(12345.67, { prefix: '€' })); // €12,345.67
 | separator     | ,        | String  | 1,000                        |
 | decimalPoint  | .        | String  | 1,234.56                     |
 | decimals      | 0        | Number  | 1,234 (0 - without decimals) |
-| prefix        | None     | String  | $1,234.56 (before)           |
-| suffix        | None     | String  | 1,234.56$ (after)            |
+| symbol        | None     | String  | $1,234.56 (if append false)  |
+| append        | false    | String  | 1,234.56$ (if append true)   |
 
 ## Source
 

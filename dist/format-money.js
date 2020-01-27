@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.1.6
+ * format-money-js v1.2.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -8,19 +8,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.1.6';
+        this.version = '1.2.0';
         this.defaults = {
             grouping: true,
             separator: ',',
             decimalPoint: '.',
             decimals: 0,
-            prefix: '',
-            suffix: ''
+            symbol: '',
+            append: false
         };
         this.from = (num, options) => {
             options = Object.assign(Object.assign({}, this.options), options);
             const neg = (num < 0) ? '-' : '';
-            let result, x, x1, x2, x3;
+            let result, x, x1, x2, x3, prefix, suffix;
             result = Math.abs(num).toFixed(options.decimals);
             result += '';
             x = result.split('.');
@@ -36,7 +36,14 @@ class FormatMoney {
                 }
                 x1 = x3;
             }
-            return neg + options.prefix + x1 + x2 + options.suffix;
+            prefix = suffix = '';
+            if (options.append) {
+                suffix = options.symbol;
+            }
+            else {
+                prefix = options.symbol;
+            }
+            return neg + prefix + x1 + x2 + suffix;
         };
         this.options = Object.assign(Object.assign({}, this.defaults), options);
     }
