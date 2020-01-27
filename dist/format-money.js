@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.1.5
+ * format-money-js v1.1.6
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.1.5';
+        this.version = '1.1.6';
         this.defaults = {
             grouping: true,
             separator: ',',
