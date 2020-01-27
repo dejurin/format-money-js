@@ -1,7 +1,7 @@
 {
 	"name": "format-money-js",
 	"description": "Tiny JavaScript library (656 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.",
-	"version": "1.1.4",
+	"version": "1.1.5",
   "license": "BSD-2-Clause",
 	"main": "./dist/format-money.js",
 	"author": "@dejurin",
