@@ -40,3 +40,4 @@ console.log(fm.from(12345.67, { symbol: '€' })); // €12,345.67
 ## Source
 
 https://currencyrate.today/
+https://fx-w.io/
