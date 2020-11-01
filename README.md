@@ -4,11 +4,13 @@
 ![download per month](https://img.shields.io/npm/dm/format-money-js)
 
 
-Tiny JavaScript library (1kB bytes) by CurrencyRate.today, providing simple way and advanced number, money and currency formatting and removes all formatting/cruft and returns the raw float value.
+**Zero dependency** tiny JavaScript library (1kB bytes) by CurrencyRate.today, providing simple way and advanced number, money and currency formatting and removes all formatting/cruft and returns the raw float value.
+
 
 # Functions
 
 **from**:  money and currency formatting;
+
 **un**: removes all formatting/cruft and returns the raw float value.
 
 
