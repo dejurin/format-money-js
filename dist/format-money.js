@@ -1,49 +1,71 @@
 "use strict";
 /*!
- * format-money-js v1.2.0
+ * format-money-js v1.3.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatMoney = void 0;
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.2.0';
+        this.version = '1.3.0';
         this.defaults = {
             grouping: true,
             separator: ',',
             decimalPoint: '.',
             decimals: 0,
             symbol: '',
-            append: false
+            append: false,
         };
-        this.from = (num, options) => {
-            options = Object.assign(Object.assign({}, this.options), options);
-            const neg = (num < 0) ? '-' : '';
-            let result, x, x1, x2, x3, prefix, suffix;
-            result = Math.abs(num).toFixed(options.decimals);
+        this.from = (number, options) => {
+            const opt = Object.assign(Object.assign({}, this.options), options);
+            if (typeof number === 'string')
+                return number;
+            const neg = (number < 0) ? '-' : '';
+            let result;
+            let x;
+            let x1;
+            let x2;
+            let x3;
+            let prefix;
+            let suffix;
+            result = Math.abs(number).toFixed(opt.decimals);
             result += '';
             x = result.split('.');
             x1 = x[0];
-            x2 = x.length > 1 ? options.decimalPoint + x[1] : '';
-            if (options.grouping) {
+            x2 = x.length > 1 ? opt.decimalPoint + x[1] : '';
+            if (opt.grouping) {
                 x3 = '';
-                for (let i = 0, len = x1.length; i < len; ++i) {
+                for (let i = 0, len = x1.length; i < len; i += 1) {
                     if (i !== 0 && (i % 3) === 0) {
-                        x3 = options.separator + x3;
+                        x3 = opt.separator + x3;
                     }
                     x3 = x1[len - i - 1] + x3;
                 }
                 x1 = x3;
             }
             prefix = suffix = '';
-            if (options.append) {
-                suffix = options.symbol;
+            if (opt.append) {
+                suffix = opt.symbol;
             }
             else {
-                prefix = options.symbol;
+                prefix = opt.symbol;
             }
             return neg + prefix + x1 + x2 + suffix;
+        };
+        this.un = (value, options) => {
+            const opt = Object.assign(Object.assign({}, this.options), options);
+            const val = value || 0;
+            if (typeof val === 'number')
+                return val;
+            // Build regex to strip out everything except digits, decimal point and minus sign:
+            const regex = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
+            const unformatted = parseFloat((val)
+                .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
+                .replace(regex, '') // strip out any cruft
+                .replace(opt.decimalPoint, '.'));
+            return !isNaN(unformatted) ? unformatted : 0;
         };
         this.options = Object.assign(Object.assign({}, this.defaults), options);
     }

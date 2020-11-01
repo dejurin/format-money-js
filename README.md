@@ -4,7 +4,13 @@
 ![download per month](https://img.shields.io/npm/dm/format-money-js)
 
 
-Tiny JavaScript library (684 bytes) by CurrencyRate.today, providing simple and advanced number, money and currency formatting.
+Tiny JavaScript library (1kB bytes) by CurrencyRate.today, providing simple way and advanced number, money and currency formatting and removes all formatting/cruft and returns the raw float value.
+
+# Functions
+
+**from**:  money and currency formatting;
+**un**: removes all formatting/cruft and returns the raw float value.
+
 
 ## Example
 
@@ -16,6 +22,7 @@ const fm = new FormatMoney({
 });
 
 console.log(fm.from(12345.67, { symbol: '$' })); // $12,345.67
+console.log(fm.un('€12,345;67')); // 12345.67
 ```
 
 ## Options
@@ -26,6 +33,7 @@ You can added options in construct of class and in method. But method will be pr
 const fm = new FormatMoney({ symbol: '$' });
 
 console.log(fm.from(12345.67, { symbol: '€' })); // €12,345.67
+console.log(fm.un('€12.345,67', { decimalPoint: ',' })); // 12345.67
 ```
 
 | Name          | Default  | Type    | Example

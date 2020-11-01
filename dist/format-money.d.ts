@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.2.0
+ * format-money-js v1.3.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -16,5 +16,6 @@ export declare class FormatMoney {
     version: string;
     private defaults;
     constructor(options?: FormatMoneyOptions);
-    from: (num: number, options: FormatMoneyOptions) => string;
+    from: (number: number, options: FormatMoneyOptions) => string | number;
+    un: (value: (string | number), options: FormatMoneyOptions) => number;
 }
