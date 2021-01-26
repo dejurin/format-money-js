@@ -23,8 +23,8 @@ const fm = new FormatMoney({
   decimals: 2
 });
 
-console.log(fm.from(12345.67, { symbol: '$' })); // $12,345.67
-console.log(fm.un('€12,345;67')); // 12345.67
+console.log(fm.from(12345.67, { symbol: '$' })); // return string: $12,345.67
+console.log(fm.un('€12,345;67')); // return number: 12345.67
 ```
 
 ```
@@ -39,7 +39,7 @@ console.log(fm.from(
   { symbol: '$' },
   true // Fragment, return object
   )
-); // { negative: false, amount: '12345', decimals: '.67', symbol: '$' }
+); // return object: { negative: false, amount: '12345', decimals: '.67', symbol: '$' }
 ```
 
 ## Options
