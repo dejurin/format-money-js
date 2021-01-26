@@ -44,7 +44,16 @@ console.log(fm2.from(12345.67, { symbol: '€' })); // €12,345.67
 //
 
 const fm3 = new FormatMoney({ symbol: '$' });
-console.log(fm2.from(12345.67, { append: true })); // 12,345.67$
+console.log(fm3.from(12345.67, { append: true })); // 12,345.67$
+
+// Fragment
+
+const fm4 = new FormatMoney({ symbol: '$' });
+console.log(fm4.from(12345.67, { append: true }, true)); // { negative: false, amount: '12,346', decimals: '', symbol: '$' }
+
+const fm5 = new FormatMoney({ symbol: '$' });
+console.log(fm5.from(-12345.67, { append: true }, true)); // { negative: true, amount: '12,346', decimals: '', symbol: '$' }
+console.log(fm5.from(-12345.67, { grouping: false, decimals: 2 }, true)); // { negative: true, amount: '12345', decimals: '.67', symbol: '$' }
 
 //
 

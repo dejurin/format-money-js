@@ -1,4 +1,4 @@
-Copyright (c) 2020 Yurii Derevych
+Copyright (c) 2020-2021 Yurii Derevych
 
 All rights reserved.
 

@@ -14,7 +14,7 @@
 **un**: removes all formatting/cruft and returns the raw float value.
 
 
-## Example
+## Examples
 
 ```
 const { FormatMoney } = require('format-money-js');
@@ -25,6 +25,21 @@ const fm = new FormatMoney({
 
 console.log(fm.from(12345.67, { symbol: '$' })); // $12,345.67
 console.log(fm.un('€12,345;67')); // 12345.67
+```
+
+```
+const { FormatMoney } = require('format-money-js');
+
+const fm = new FormatMoney({
+  decimals: 2
+});
+
+console.log(fm.from(
+  12345.67, 
+  { symbol: '$' },
+  true // Fragment, return object
+  )
+); // { negative: false, amount: '12345', decimals: '.67', symbol: '$' }
 ```
 
 ## Options

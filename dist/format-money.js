@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.3.3
+ * format-money-js v1.4.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -18,7 +18,7 @@ class FormatMoney {
             symbol: '',
             append: false,
         };
-        this.from = (number, options) => {
+        this.from = (number, options, fragment = false) => {
             const opt = Object.assign(Object.assign({}, this.options), options);
             if (typeof number === 'string')
                 return number;
@@ -52,6 +52,14 @@ class FormatMoney {
             else {
                 prefix = opt.symbol;
             }
+            if (fragment) {
+                return {
+                    negative: (number < 0),
+                    amount: x1,
+                    decimals: x2,
+                    symbol: opt.symbol,
+                };
+            }
             return neg + prefix + x1 + x2 + suffix;
         };
         this.un = (value, options) => {
@@ -64,7 +72,7 @@ class FormatMoney {
             const unformatted = parseFloat((val)
                 .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
                 .replace(regex, '') // strip out any cruft
-                .replace(opt.decimalPoint, '.'));
+                .replace(`${opt.decimalPoint}`, '.'));
             return !isNaN(unformatted) ? unformatted : 0;
         };
         this.options = Object.assign(Object.assign({}, this.defaults), options);

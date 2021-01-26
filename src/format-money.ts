@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.3.3
+ * format-money-js v1.4.0
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -11,6 +11,13 @@ export interface FormatMoneyOptions { // (default)
   decimals?: number; // Sets the number of decimal points.
   symbol?: string;
   append?: boolean;
+}
+
+export interface FormatMoneyFragment { // (default)
+  negative?: boolean;
+  amount?: string;
+  decimals?: string;
+  symbol?: string;
 }
 
 export class FormatMoney {
@@ -34,7 +41,7 @@ export class FormatMoney {
     };
   }
 
-  from = (number: number, options: FormatMoneyOptions): string | number => {
+  from = (number: number, options: FormatMoneyOptions, fragment: boolean = false): string | number | FormatMoneyFragment => {
     const opt = {
       ...this.options,
       ...options,
@@ -49,8 +56,8 @@ export class FormatMoney {
     let x1: string;
     let x2: string;
     let x3: string;
-    let prefix: string;
-    let suffix: string;
+    let prefix: string | undefined;
+    let suffix: string | undefined;
 
     result = Math.abs(number).toFixed(opt.decimals);
     result += '';
@@ -73,6 +80,14 @@ export class FormatMoney {
     } else {
       prefix = opt.symbol;
     }
+    if (fragment) {
+      return {
+        negative: (number < 0),
+        amount: x1,
+        decimals: x2,
+        symbol: opt.symbol,
+      };
+    }
     return neg + prefix + x1 + x2 + suffix;
   }
 
@@ -90,12 +105,11 @@ export class FormatMoney {
     const regex: RegExp = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
     const unformatted = parseFloat(
       (val)
-        .replace(/\((?=\d+)(.*)\)/, '-$1')    // replace bracketed values with negatives
-        .replace(regex, '')                   // strip out any cruft
-        .replace(opt.decimalPoint, '.'),  // make sure decimal point is standard
+        .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
+        .replace(regex, '') // strip out any cruft
+        .replace(`${opt.decimalPoint}`, '.'), // make sure decimal point is standard
     );
 
     return !isNaN(unformatted) ? unformatted : 0;
   }
-
 }

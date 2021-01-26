@@ -65,5 +65,8 @@
 		"type": "git",
 		"url": "git@github.com:dejurin/format-money-js.git"
 	},
-	"types": "./dist/format-money.d.ts"
+	"types": "./dist/format-money.d.ts",
+	"dependencies": {
+		"tape": "^5.1.1"
+	}
 }
