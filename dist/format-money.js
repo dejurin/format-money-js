@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.4.0
+ * format-money-js v1.4.3
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -18,10 +18,10 @@ class FormatMoney {
             symbol: '',
             append: false,
         };
-        this.from = (number, options, fragment = false) => {
+        this.from = (number, options, parse = false) => {
             const opt = Object.assign(Object.assign({}, this.options), options);
-            if (typeof number === 'string')
-                return number;
+            if (typeof number !== 'number')
+                return undefined;
             const neg = (number < 0) ? '-' : '';
             let result;
             let x;
@@ -52,9 +52,11 @@ class FormatMoney {
             else {
                 prefix = opt.symbol;
             }
-            if (fragment) {
+            if (parse) {
                 return {
+                    source: number,
                     negative: (number < 0),
+                    fullAmount: x1 + x2,
                     amount: x1,
                     decimals: x2,
                     symbol: opt.symbol,
@@ -64,12 +66,13 @@ class FormatMoney {
         };
         this.un = (value, options) => {
             const opt = Object.assign(Object.assign({}, this.options), options);
-            const val = value || 0;
-            if (typeof val === 'number')
-                return val;
+            if (typeof value === 'number')
+                return value;
+            if (typeof value !== 'string')
+                return undefined;
             // Build regex to strip out everything except digits, decimal point and minus sign:
             const regex = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
-            const unformatted = parseFloat((val)
+            const unformatted = parseFloat((value)
                 .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
                 .replace(regex, '') // strip out any cruft
                 .replace(`${opt.decimalPoint}`, '.'));

@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.4.0
+ * format-money-js v1.4.3
  * (c) 2020 Yurii Derevych
  * Released under the BSD-2-Clause License.
  */
@@ -13,8 +13,10 @@ export interface FormatMoneyOptions { // (default)
   append?: boolean;
 }
 
-export interface FormatMoneyFragment { // (default)
+export interface FormatMoneyParse { // Parse
+  source?: number;
   negative?: boolean;
+  fullAmount?: string;
   amount?: string;
   decimals?: string;
   symbol?: string;
@@ -41,13 +43,15 @@ export class FormatMoney {
     };
   }
 
-  from = (number: number, options: FormatMoneyOptions, fragment: boolean = false): string | number | FormatMoneyFragment => {
+  from = (number: number,
+          options: FormatMoneyOptions,
+          parse: boolean = false): string | number | FormatMoneyParse => {
     const opt = {
       ...this.options,
       ...options,
     };
 
-    if (typeof number === 'string') return number;
+    if (typeof number !== 'number') return undefined;
 
     const neg = (number < 0) ? '-' : '';
 
@@ -80,9 +84,11 @@ export class FormatMoney {
     } else {
       prefix = opt.symbol;
     }
-    if (fragment) {
+    if (parse) {
       return {
+        source: number,
         negative: (number < 0),
+        fullAmount: x1 + x2,
         amount: x1,
         decimals: x2,
         symbol: opt.symbol,
@@ -97,14 +103,13 @@ export class FormatMoney {
       ...options,
     };
 
-    const val: (string | number) = value || 0;
-
-    if (typeof val === 'number') return val;
+    if (typeof value === 'number') return value;
+    if (typeof value !== 'string') return undefined;
 
     // Build regex to strip out everything except digits, decimal point and minus sign:
     const regex: RegExp = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
     const unformatted = parseFloat(
-      (val)
+      (value)
         .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
         .replace(regex, '') // strip out any cruft
         .replace(`${opt.decimalPoint}`, '.'), // make sure decimal point is standard

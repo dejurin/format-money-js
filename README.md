@@ -37,9 +37,18 @@ const fm = new FormatMoney({
 console.log(fm.from(
   12345.67, 
   { symbol: '$' },
-  true // Fragment, return object
+  true // Parse, return object
   )
-); // return object: { negative: false, amount: '12345', decimals: '.67', symbol: '$' }
+);
+/* return object: 
+{
+  source: 12345.67,
+  negative: false,
+  fullAmount: '12,345.67',
+  amount: '12,345',
+  decimals: '.67',
+  symbol: '$'
+}*/
 ```
 
 ## Options

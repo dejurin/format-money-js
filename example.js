@@ -4,9 +4,9 @@ const fm1 = new FormatMoney({
   decimals: 2
 });
 
-console.log(fm1.from(12345.67, { symbol: '$' }), 'typeof: ' + typeof fm1.from(12345.67, { symbol: '$' })); // $12,345.67
-console.log(fm1.un('€12,345.67'), 'typeof: ' + typeof fm1.un('€12,345.67')); // 12345.67
-console.log(fm1.un('€12.345,67', { decimalPoint: ',' }), 'typeof: ' + typeof fm1.un('€12.345,67', { decimalPoint: ',' })); // 12345.67
+console.log(fm1.from(12345.67, { symbol: '$' }), 'typeof: ' + typeof fm1.from(12345.67, { symbol: '$' }));
+console.log(fm1.un('€12,345.67'), 'typeof: ' + typeof fm1.un('€12,345.67'));
+console.log(fm1.un('€12.345,67', { decimalPoint: ',' }), 'typeof: ' + typeof fm1.un('€12.345,67', { decimalPoint: ',' }));
 
 //
 
@@ -27,34 +27,35 @@ const array0 = [
   12345678901234,
   123456789012345,
   1234567890123456,
-  12345678901234567,
-  123456789012345678,
-  1234567890123456789,
+  'text',
+  undefined,
+  null,
+  '',
 ];
 
 array0.forEach(element => {
-  console.log(fm1.from(element), 'typeof: ' + typeof fm1.from(element));
+  console.log(element, ' -> ' , fm1.from(element), 'typeof: ' + typeof fm1.from(element));
 });
 
 //
 
 const fm2 = new FormatMoney({ symbol: '$' });
-console.log(fm2.from(12345.67, { symbol: '€' }), 'typeof: ' + typeof fm2.from(12345.67, { symbol: '€' })); // €12,345.67
+console.log(fm2.from(12345.67, { symbol: '€' }), 'typeof: ' + typeof fm2.from(12345.67, { symbol: '€' }));
 
 //
 
 const fm3 = new FormatMoney({ symbol: '$' });
-console.log(fm3.from(12345.67, { append: true }), 'typeof: ' + typeof fm3.from(12345.67, { append: true })); // 12,345.67$
+console.log(fm3.from(12345.67, { append: true }), 'typeof: ' + typeof fm3.from(12345.67, { append: true }));
 
 // Fragment
 
 const fm4 = new FormatMoney({ symbol: '$' });
-console.log(fm4.from(12345.67, { append: true }, true), 'typeof: ' + typeof fm4.from(12345.67, { append: true }, true)); // { negative: false, amount: '12,346', decimals: '', symbol: '$' }
+console.log(fm4.from(12345.67, { append: true }, true), 'typeof: ' + typeof fm4.from(12345.67, { append: true }, true));
 
 const fm5 = new FormatMoney({ symbol: '$' });
-console.log(fm5.from(-12345.67, { append: true }, true), 'typeof: ' + typeof fm5.from(-12345.67, { append: true }, true)); // { negative: true, amount: '12,346', decimals: '', symbol: '$' }
-console.log(fm5.from(-12345.67, { grouping: false, decimals: 2 }, true), 'typeof: ' + typeof fm5.from(-12345.67, { grouping: false, decimals: 2 }, true)); // { negative: true, amount: '12345', decimals: '.67', symbol: '$' }
-
+console.log(fm5.from(-12345.67, { append: true }, true), 'typeof: ' + typeof fm5.from(-12345.67, { append: true }, true));
+console.log(fm5.from(-12345.67, { grouping: false, decimals: 2 }, true), 'typeof: ' + typeof fm5.from(-12345.67, { grouping: false, decimals: 2 }, true));
+console.log(fm5.from('1234567.890', { grouping: false, decimals: 2 }, true), 'typeof: ' + typeof fm5.from('1234567.890', { grouping: true, decimals: 2 }, true));
 //
 
 const un1 = new FormatMoney();
@@ -69,7 +70,12 @@ const array1 = [
   '12,345.67 USD',
   '$12 345.67 USD',
   '12 345.67 USD',
+  123,
+  123.45,
   'text',
+  undefined,
+  null,
+  '',
 ];
 
 const array2 = [
@@ -81,7 +87,12 @@ const array2 = [
   '12.345,67 USD',
   '$12 345,67 USD',
   '12 345,67 USD',
+  123,
+  123.45,
   'text',
+  undefined,
+  null,
+  '',
 ];
 
 array1.forEach(element => {
