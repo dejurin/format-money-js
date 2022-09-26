@@ -1,6 +1,7 @@
 /*!
- * format-money-js v1.4.3
- * (c) 2020 Yurii Derevych
+ * format-money-js v1.4.4
+ * (c) 2020-2022 Yurii Derevych
+ * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
  */
 export interface FormatMoneyOptions {
