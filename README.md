@@ -63,13 +63,14 @@ console.log(fm.un('€12.345,67', { decimalPoint: ',' })); // 12345.67
 ```
 
 | Name          | Default  | Type    | Example
-|---------------|----------|---------|------------------------------|
-| grouping      | true     | Boolean | 1,000 (true) vs 1000 (false) |
-| separator     | ,        | String  | 1,000                        |
-| decimalPoint  | .        | String  | 1,234.56                     |
-| decimals      | 0        | Number  | 1,234 (0 - without decimals) |
-| symbol        | None     | String  | $1,234.56 (if append false)  |
-| append        | false    | String  | 1,234.56$ (if append true)   |
+|---------------|----------|---------|------------------------------------------|
+| grouping      | true     | Boolean | 1,000 (true) vs 1000 (false)             |
+| separator     | ,        | String  | 1,000                                    |
+| decimalPoint  | .        | String  | 1,234.56                                 |
+| decimals      | 0        | Number  | 1,234 (0 - without decimals)             |
+| symbol        | None     | String  | $1,234.56 (if append false)              |
+| append        | false    | String  | 1,234.56$ (if append true)               |
+| leadZeros     | true     | Boolean | true - 1.10, false - 1.1 (leading zeros) |
 
 ## Source
 

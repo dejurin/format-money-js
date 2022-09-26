@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.4.4
+ * format-money-js v1.5.0
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -11,6 +11,7 @@ export interface FormatMoneyOptions {
     decimals?: number;
     symbol?: string;
     append?: boolean;
+    leadZeros: boolean;
 }
 export interface FormatMoneyParse {
     source?: number;
@@ -25,6 +26,6 @@ export declare class FormatMoney {
     version: string;
     private defaults;
     constructor(options?: FormatMoneyOptions);
-    from: (number: number, options: FormatMoneyOptions, parse?: boolean) => string | number | FormatMoneyParse;
-    un: (value: (string | number), options: FormatMoneyOptions) => number;
+    from: (number: number, options: FormatMoneyOptions, parse?: boolean) => string | number | FormatMoneyParse | undefined;
+    un: (value: (string | number), options: FormatMoneyOptions) => number | undefined;
 }

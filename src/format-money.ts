@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.4.4
+ * format-money-js v1.5.0
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -12,6 +12,7 @@ export interface FormatMoneyOptions { // (default)
   decimals?: number; // Sets the number of decimal points.
   symbol?: string;
   append?: boolean;
+  leadZeros: boolean;
 }
 
 export interface FormatMoneyParse { // Parse
@@ -25,7 +26,7 @@ export interface FormatMoneyParse { // Parse
 
 export class FormatMoney {
 
-  version = '1.4.4';
+  version = '1.5.0';
   private defaults: FormatMoneyOptions = {
     grouping: true,
     separator: ',',
@@ -33,6 +34,7 @@ export class FormatMoney {
     decimals: 0,
     symbol: '',
     append: false,
+    leadZeros: true,
   };
 
   constructor(
@@ -46,7 +48,7 @@ export class FormatMoney {
 
   from = (number: number,
           options: FormatMoneyOptions,
-          parse: boolean = false): string | number | FormatMoneyParse => {
+          parse: boolean = false): string | number | FormatMoneyParse | undefined => {
     const opt = {
       ...this.options,
       ...options,
@@ -65,7 +67,10 @@ export class FormatMoney {
     let suffix: string | undefined;
 
     result = Math.abs(number).toFixed(opt.decimals);
-    result += '';
+    if (opt.leadZeros === false) {
+        const resultFloat = parseFloat(result)
+        result = resultFloat.toString()
+    }
     x = result.split('.');
     x1 = x[0];
     x2 = x.length > 1 ? opt.decimalPoint + x[1] : '';
@@ -98,7 +103,7 @@ export class FormatMoney {
     return neg + prefix + x1 + x2 + suffix;
   }
 
-  un = (value: (string | number), options: FormatMoneyOptions): number => {
+  un = (value: (string | number), options: FormatMoneyOptions): number| undefined => {
     const opt = {
       ...this.options,
       ...options,
