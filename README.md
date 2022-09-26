@@ -76,3 +76,7 @@ console.log(fm.un('€12.345,67', { decimalPoint: ',' })); // 12345.67
 https://currencyrate.today/
 
 https://fx-w.io/
+
+https://moneyconvert.net/
+
+https://cr.today/
