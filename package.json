@@ -1,7 +1,7 @@
 {
 	"name": "format-money-js",
 	"description": "Zero dependency tiny JavaScript library (1kB bytes) by CurrencyRate.today, providing simple way and advanced number, money and currency formatting and removes all formatting/cruft and returns the raw float value.",
-	"version": "1.5.2",
+	"version": "1.5.3",
 	"license": "BSD-2-Clause",
 	"main": "./dist/format-money.js",
 	"author": "@dejurin",

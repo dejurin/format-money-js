@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.5.1
+ * format-money-js v1.5.3
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -12,7 +12,7 @@ export interface FormatMoneyOptions { // (default)
   decimals?: number; // Sets the number of decimal points.
   symbol?: string;
   append?: boolean;
-  leadZeros: boolean;
+  leadZeros?: boolean;
 }
 
 export interface FormatMoneyParse { // Parse
@@ -67,9 +67,9 @@ export class FormatMoney {
     let suffix: string | undefined;
 
     result = Math.abs(number).toFixed(opt.decimals);
-    if (opt.leadZeros === false) {
-        const resultFloat = parseFloat(result)
-        result = resultFloat.toString()
+    if (!opt.leadZeros) {
+      const resultFloat = parseFloat(result);
+      result = resultFloat.toString();
     }
     x = result.split('.');
     x1 = x[0];

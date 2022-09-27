@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.5.1
+ * format-money-js v1.5.3
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -33,7 +33,7 @@ class FormatMoney {
             let prefix;
             let suffix;
             result = Math.abs(number).toFixed(opt.decimals);
-            if (opt.leadZeros === false) {
+            if (!opt.leadZeros) {
                 const resultFloat = parseFloat(result);
                 result = resultFloat.toString();
             }
