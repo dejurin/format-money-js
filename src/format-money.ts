@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.5.3
+ * format-money-js v1.5.5
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -16,17 +16,17 @@ export interface FormatMoneyOptions { // (default)
 }
 
 export interface FormatMoneyParse { // Parse
-  source?: number;
-  negative?: boolean;
-  fullAmount?: string;
-  amount?: string;
-  decimals?: string;
-  symbol?: string;
+  source: number;
+  negative: boolean;
+  fullAmount: string;
+  amount: string;
+  decimals: string;
+  symbol: string;
 }
 
 export class FormatMoney {
 
-  version = '1.5.2';
+  version = '1.5.5';
   private defaults: FormatMoneyOptions = {
     grouping: true,
     separator: ',',
@@ -48,7 +48,7 @@ export class FormatMoney {
 
   from = (number: number,
           options: FormatMoneyOptions | {} = {},
-          parse: boolean = false): string | number | FormatMoneyParse | undefined => {
+          parse: boolean = false): FormatMoneyParse | string | undefined => {
     const opt = {
       ...this.options,
       ...options,
@@ -103,7 +103,7 @@ export class FormatMoney {
     return neg + prefix + x1 + x2 + suffix;
   }
 
-  un = (value: (string | number), options: FormatMoneyOptions): number| undefined => {
+  un = (value: (string | number), options: FormatMoneyOptions): number | undefined => {
     const opt = {
       ...this.options,
       ...options,

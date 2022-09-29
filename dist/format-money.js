@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.5.3
+ * format-money-js v1.5.5
  * (c) 2020-2022 Yurii Derevych
  * Sponsored by https://currencyrate.today/
  * Released under the BSD-2-Clause License.
@@ -10,7 +10,7 @@ exports.FormatMoney = void 0;
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.5.2';
+        this.version = '1.5.5';
         this.defaults = {
             grouping: true,
             separator: ',',
