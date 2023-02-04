@@ -1,7 +1,10 @@
 /*!
- * format-money-js v1.5.5
- * (c) 2020-2022 Yurii Derevych
- * Sponsored by https://currencyrate.today/
+ * format-money-js v1.6.0
+ * (c) 2020-2023 Yurii Derevych
+ * URL: https://github.com/dejurin/format-money-js
+ * Sponsored:
+ * https://cr.today/
+ * https://currencyrate.today/
  * Released under the BSD-2-Clause License.
  */
 
@@ -25,102 +28,114 @@ export interface FormatMoneyParse { // Parse
 }
 
 export class FormatMoney {
+version = '1.6.0';
 
-  version = '1.5.5';
-  private defaults: FormatMoneyOptions = {
-    grouping: true,
-    separator: ',',
-    decimalPoint: '.',
-    decimals: 0,
-    symbol: '',
-    append: false,
-    leadZeros: true,
+private defaults: FormatMoneyOptions = {
+  grouping: true,
+  separator: ',',
+  decimalPoint: '.',
+  decimals: 0,
+  symbol: '',
+  append: false,
+  leadZeros: true,
+};
+
+constructor(
+      private options?: FormatMoneyOptions,
+) {
+  // Merge options
+  this.options = {
+    ...this.defaults,
+    ...options,
+  };
+}
+
+// Format
+from = (
+  value: number,
+  options: FormatMoneyOptions | {} = {},
+  parse: boolean = false,
+): FormatMoneyParse | string | undefined => {
+  // Merge custom options
+  const customOptions = {
+    ...this.options,
+    ...options,
   };
 
-  constructor(
-    private options?: FormatMoneyOptions,
-  ) {
-    this.options = {
-      ...this.defaults,
-      ...options,
-    };
+  // If value not number return undefined
+  if (typeof value !== 'number') return undefined;
+
+  // Set a sign for negative number
+  let negativeSign: string = (value < 0) ? '-' : '';
+  let result: string;
+  let left: string;
+  let body: string;
+  let prefix: string = '';
+  let suffix: string = '';
+
+  result = Math.abs(value).toFixed(customOptions.decimals);
+  if (parseFloat(result) === 0 || result === '0') {
+    negativeSign = '';
   }
 
-  from = (number: number,
-          options: FormatMoneyOptions | {} = {},
-          parse: boolean = false): FormatMoneyParse | string | undefined => {
-    const opt = {
-      ...this.options,
-      ...options,
-    };
+  if (!customOptions.leadZeros) {
+    const resultFloat = parseFloat(result);
+    result = resultFloat.toString();
+  }
 
-    if (typeof number !== 'number') return undefined;
+  const resultArr: string[] = result.split('.');
+  [left] = resultArr;
 
-    const neg = (number < 0) ? '-' : '';
-
-    let result: string;
-    let x: string[];
-    let x1: string;
-    let x2: string;
-    let x3: string;
-    let prefix: string | undefined;
-    let suffix: string | undefined;
-
-    result = Math.abs(number).toFixed(opt.decimals);
-    if (!opt.leadZeros) {
-      const resultFloat = parseFloat(result);
-      result = resultFloat.toString();
-    }
-    x = result.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? opt.decimalPoint + x[1] : '';
-    if (opt.grouping) {
-      x3 = '';
-      for (let i = 0, len = x1.length; i < len; i += 1) {
-        if (i !== 0 && (i % 3) === 0) {
-          x3 = opt.separator + x3;
-        }
-        x3 = x1[len - i - 1] + x3;
+  const right = resultArr.length > 1 ? customOptions.decimalPoint + resultArr[1] : '';
+  if (customOptions.grouping) {
+    body = '';
+    for (let i = 0, len = left.length; i < len; i += 1) {
+      if (i !== 0 && (i % 3) === 0) {
+        body = customOptions.separator + body;
       }
-      x1 = x3;
+      body = left[len - i - 1] + body;
     }
-    prefix = suffix = '';
-    if (opt.append) {
-      suffix = opt.symbol;
-    } else {
-      prefix = opt.symbol;
-    }
-    if (parse) {
-      return {
-        source: number,
-        negative: (number < 0),
-        fullAmount: x1 + x2,
-        amount: x1,
-        decimals: x2,
-        symbol: opt.symbol,
-      };
-    }
-    return neg + prefix + x1 + x2 + suffix;
+    left = body;
   }
 
-  un = (value: (string | number), options: FormatMoneyOptions): number | undefined => {
-    const opt = {
-      ...this.options,
-      ...options,
+  if (customOptions.append) {
+    suffix = customOptions.symbol as string;
+  } else {
+    prefix = customOptions.symbol as string;
+  }
+  if (parse) {
+    return {
+      source: value,
+      negative: (value < 0),
+      fullAmount: left + right,
+      amount: left,
+      decimals: right,
+      symbol: customOptions.symbol as string,
     };
-
-    if (typeof value === 'number') return value;
-    if (typeof value !== 'string') return undefined;
-
-    // Build regex to strip out everything except digits, decimal point and minus sign:
-    const regex: RegExp = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
-    const unformatted = parseFloat(
-      (value)
-        .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
-        .replace(regex, '') // strip out any cruft
-        .replace(`${opt.decimalPoint}`, '.'), // make sure decimal point is standard
-    );
-
-    return !isNaN(unformatted) ? unformatted : 0;
   }
+  return negativeSign + prefix + left + right + suffix;
+};
+
+// Unformat
+un = (value: (string | number), options: FormatMoneyOptions): number | undefined => {
+  // Merge custom options
+  const customOptions = {
+    ...this.options,
+    ...options,
+  };
+
+  if (typeof value === 'number') return value;
+  if (typeof value !== 'string') return undefined;
+
+  // Build regex to strip out everything except digits, decimal point and minus sign:
+  const regex: RegExp = new RegExp(`[^0-9-${customOptions.decimalPoint}]`, 'g');
+  const unFormatted = parseFloat(
+    (value)
+      .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
+      .replace(regex, '') // strip out any cruft
+      .replace(`${customOptions.decimalPoint}`, '.'), // make sure decimal point is standard
+  );
+
+  return !Number.isNaN(unFormatted) ? unFormatted : 0;
+};
 }

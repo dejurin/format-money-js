@@ -1,8 +1,11 @@
 "use strict";
 /*!
- * format-money-js v1.5.5
- * (c) 2020-2022 Yurii Derevych
- * Sponsored by https://currencyrate.today/
+ * format-money-js v1.6.0
+ * (c) 2020-2023 Yurii Derevych
+ * URL: https://github.com/dejurin/format-money-js
+ * Sponsored:
+ * https://cr.today/
+ * https://currencyrate.today/
  * Released under the BSD-2-Clause License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -10,7 +13,7 @@ exports.FormatMoney = void 0;
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.5.5';
+        this.version = '1.6.0';
         this.defaults = {
             grouping: true,
             separator: ',',
@@ -20,69 +23,76 @@ class FormatMoney {
             append: false,
             leadZeros: true,
         };
-        this.from = (number, options = {}, parse = false) => {
-            const opt = Object.assign(Object.assign({}, this.options), options);
-            if (typeof number !== 'number')
+        // Format
+        this.from = (value, options = {}, parse = false) => {
+            // Merge custom options
+            const customOptions = Object.assign(Object.assign({}, this.options), options);
+            // If value not number return undefined
+            if (typeof value !== 'number')
                 return undefined;
-            const neg = (number < 0) ? '-' : '';
+            // Set a sign for negative number
+            let negativeSign = (value < 0) ? '-' : '';
             let result;
-            let x;
-            let x1;
-            let x2;
-            let x3;
-            let prefix;
-            let suffix;
-            result = Math.abs(number).toFixed(opt.decimals);
-            if (!opt.leadZeros) {
+            let left;
+            let body;
+            let prefix = '';
+            let suffix = '';
+            result = Math.abs(value).toFixed(customOptions.decimals);
+            if (parseFloat(result) === 0 || result === '0') {
+                negativeSign = '';
+            }
+            if (!customOptions.leadZeros) {
                 const resultFloat = parseFloat(result);
                 result = resultFloat.toString();
             }
-            x = result.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? opt.decimalPoint + x[1] : '';
-            if (opt.grouping) {
-                x3 = '';
-                for (let i = 0, len = x1.length; i < len; i += 1) {
+            const resultArr = result.split('.');
+            [left] = resultArr;
+            const right = resultArr.length > 1 ? customOptions.decimalPoint + resultArr[1] : '';
+            if (customOptions.grouping) {
+                body = '';
+                for (let i = 0, len = left.length; i < len; i += 1) {
                     if (i !== 0 && (i % 3) === 0) {
-                        x3 = opt.separator + x3;
+                        body = customOptions.separator + body;
                     }
-                    x3 = x1[len - i - 1] + x3;
+                    body = left[len - i - 1] + body;
                 }
-                x1 = x3;
+                left = body;
             }
-            prefix = suffix = '';
-            if (opt.append) {
-                suffix = opt.symbol;
+            if (customOptions.append) {
+                suffix = customOptions.symbol;
             }
             else {
-                prefix = opt.symbol;
+                prefix = customOptions.symbol;
             }
             if (parse) {
                 return {
-                    source: number,
-                    negative: (number < 0),
-                    fullAmount: x1 + x2,
-                    amount: x1,
-                    decimals: x2,
-                    symbol: opt.symbol,
+                    source: value,
+                    negative: (value < 0),
+                    fullAmount: left + right,
+                    amount: left,
+                    decimals: right,
+                    symbol: customOptions.symbol,
                 };
             }
-            return neg + prefix + x1 + x2 + suffix;
+            return negativeSign + prefix + left + right + suffix;
         };
+        // Unformat
         this.un = (value, options) => {
-            const opt = Object.assign(Object.assign({}, this.options), options);
+            // Merge custom options
+            const customOptions = Object.assign(Object.assign({}, this.options), options);
             if (typeof value === 'number')
                 return value;
             if (typeof value !== 'string')
                 return undefined;
             // Build regex to strip out everything except digits, decimal point and minus sign:
-            const regex = new RegExp(`[^0-9-${opt.decimalPoint}]`, 'g');
-            const unformatted = parseFloat((value)
+            const regex = new RegExp(`[^0-9-${customOptions.decimalPoint}]`, 'g');
+            const unFormatted = parseFloat((value)
                 .replace(/\((?=\d+)(.*)\)/, '-$1') // replace bracketed values with negatives
                 .replace(regex, '') // strip out any cruft
-                .replace(`${opt.decimalPoint}`, '.'));
-            return !isNaN(unformatted) ? unformatted : 0;
+                .replace(`${customOptions.decimalPoint}`, '.'));
+            return !Number.isNaN(unFormatted) ? unFormatted : 0;
         };
+        // Merge options
         this.options = Object.assign(Object.assign({}, this.defaults), options);
     }
 }
