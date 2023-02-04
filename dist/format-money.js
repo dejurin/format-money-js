@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.6.0
+ * format-money-js v1.6.2
  * (c) 2020-2023 Yurii Derevych
  * URL: https://github.com/dejurin/format-money-js
  * Sponsored:
@@ -13,7 +13,7 @@ exports.FormatMoney = void 0;
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.6.0';
+        this.version = '1.6.2';
         this.defaults = {
             grouping: true,
             separator: ',',
