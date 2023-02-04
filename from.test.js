@@ -5,6 +5,8 @@ const { FormatMoney } = require('./dist/format-money');
 const fm1 = new FormatMoney();
 
 test('FormatMoney(): valid params', (t) => {
+  t.equal('0', fm1.from(0, {}), 'should return 0');
+  t.equal('0.00', fm1.from(0, { decimals: 2 }), 'should return 0.00');
   t.equal('1', fm1.from(1, {}), 'should return 1');
   t.equal('1,20', fm1.from(1.2, { decimalPoint: ',', decimals: 2 }), 'should return 1,20');
   t.equal('1.20', fm1.from(1.2, { decimalPoint: '.', decimals: 2 }), 'should return 1.20');
