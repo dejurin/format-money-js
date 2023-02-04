@@ -1,5 +1,5 @@
 /*!
- * format-money-js v1.6.0
+ * format-money-js v1.6.1
  * (c) 2020-2023 Yurii Derevych
  * URL: https://github.com/dejurin/format-money-js
  * Sponsored:
@@ -9,7 +9,7 @@
  */
 
 export interface FormatMoneyOptions { // (default)
-  grouping?: boolean; // Example: 1,000 vs 1000 (true)
+  grouping?: boolean; // Example: 1,000 vs 1000 (true)tsc --version
   separator?: string; // Grouping separator (,)
   decimalPoint?: string; // Sets the separator for the decimal point.
   decimals?: number; // Sets the number of decimal points.
@@ -28,7 +28,7 @@ export interface FormatMoneyParse { // Parse
 }
 
 export class FormatMoney {
-version = '1.6.0';
+version = '1.6.1';
 
 private defaults: FormatMoneyOptions = {
   grouping: true,
