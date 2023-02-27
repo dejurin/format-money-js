@@ -1,6 +1,6 @@
 "use strict";
 /*!
- * format-money-js v1.6.2
+ * format-money-js v1.6.3
  * (c) 2020-2023 Yurii Derevych
  * URL: https://github.com/dejurin/format-money-js
  * Sponsored:
@@ -13,7 +13,7 @@ exports.FormatMoney = void 0;
 class FormatMoney {
     constructor(options) {
         this.options = options;
-        this.version = '1.6.2';
+        this.version = '1.6.3';
         this.defaults = {
             grouping: true,
             separator: ',',
@@ -29,6 +29,9 @@ class FormatMoney {
             const customOptions = Object.assign(Object.assign({}, this.options), options);
             // If value not number return undefined
             if (typeof value !== 'number')
+                return undefined;
+            // If value is NaN
+            if (Number.isNaN(value))
                 return undefined;
             // Set a sign for negative number
             let negativeSign = (value < 0) ? '-' : '';
