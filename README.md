@@ -7,8 +7,13 @@
 **Zero dependency** tiny JavaScript library (841 bytes) by CurrencyRate.today, providing simple way and advanced number, money and currency formatting and removes all formatting/cruft and returns the raw float value.
 Size of library: 841 bytes in zip and 1.2 kByte in min formats.
 
+# Install
 
-# Functions
+```
+npm i format-money-js
+```
+
+# Methods
 
 **from**:  money and currency formatting;
 
